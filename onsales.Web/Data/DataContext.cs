@@ -12,7 +12,9 @@ namespace onsales.Web.Data
 
         //Mapeamos las tablas
         public DbSet<Country> Countries { get; set; }
-
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        //Si creamos cada uno la tabla, tambien debemos crear en el metodo OnModelCreating los indices
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +23,12 @@ namespace onsales.Web.Data
             modelBuilder.Entity<Country>()
                 .HasIndex(t => t.Name)
                 .IsUnique();
+            modelBuilder.Entity<City>()
+              .HasIndex(t => t.Name)
+              .IsUnique();
+            modelBuilder.Entity<Department>()
+              .HasIndex(t => t.Name)
+              .IsUnique();
         }
 
     }
