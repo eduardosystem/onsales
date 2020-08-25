@@ -7,11 +7,11 @@
 
     var item_to_delete;
 
-    /**
-         * Open a modal by class name or Id.
-         *
-         * @return string id item.
-         */
+    ///**
+    //     * Open a modal by class name or Id.
+    //     *
+    //     * @return string id item.
+    //     */
     function openModal(modalName, classOrId, sourceEvent, deletePath, eventClassOrId) {
         var textEvent;
         if (classOrId) {
@@ -25,11 +25,11 @@
         });
     }
 
-    /**
-     * Path to delete an item.
-     *
-     * @return void.
-     */
+    ///**
+    // * Path to delete an item.
+    // *
+    // * @return void.
+    // */
     function deleteItem(sourceEvent, deletePath, eventClassOrId) {
         var textEvent;
         if (eventClassOrId) {
