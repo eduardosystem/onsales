@@ -9,9 +9,9 @@ namespace onsales.Common.Entities
     {
         public int Id { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage ="El campo no debe tener más de 50 carácteres")]
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set;  }
 
     }
 }
