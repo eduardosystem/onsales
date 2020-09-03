@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using onsales.Web.Data.Entities;
+using onsales.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,10 @@ namespace onsales.Web.Helpers
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
         //devuelve u booleano   
+
+
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task LogoutAsync();
+
     }
 }
