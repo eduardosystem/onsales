@@ -85,6 +85,12 @@ namespace onsales.Web.Helpers
             return await _userManager.IsInRoleAsync(user, roleName);
         }
 
+        public async Task<SignInResult> ValidatePasswordAsync(User user, string password)
+        {
+            return await _signInManager.CheckPasswordSignInAsync(user, password, false);
+        }
+
+
         //public Task<bool> IsUserInRoleAsync(User user, string roleName)
         //{
         //    throw new NotImplementedException();
