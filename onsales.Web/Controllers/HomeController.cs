@@ -17,14 +17,14 @@ namespace onsales.Web.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Sistema de Facturacion y Pedidos";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Pagina de Contacto";
 
             return View();
         }
@@ -39,5 +39,13 @@ namespace onsales.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Route("error/404")]
+        public IActionResult Error404()
+        {
+            return View();
+        }
+
+
     }
 }

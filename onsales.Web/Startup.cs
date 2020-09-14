@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,15 +40,25 @@ namespace onsales.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
+
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequiredUniqueChars = 0;
                 cfg.Password.RequireLowercase = false;
                 cfg.Password.RequireNonAlphanumeric = false;
                 cfg.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<DataContext>();
+            })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<DataContext>();
 
 
             services.AddDbContext<DataContext>(cfg =>
@@ -72,6 +84,7 @@ namespace onsales.Web
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
 
 
 
@@ -90,6 +103,17 @@ namespace onsales.Web
                 app.UseHsts();
             }
 
+            //No es la mejor solucion de poner el tipo de moneda
+            //en-US es estados unidos
+            //es-PE es peru
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new RequestCulture("es-PE"),
+            //    SupportedCultures = new[] { new CultureInfo("es-PE") },
+            //    SupportedUICultures = new[] { new CultureInfo("es-PE") }
+            //});
+
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

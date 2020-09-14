@@ -20,5 +20,14 @@ namespace onsales.Web.Models
 
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }
+
+
+        [Display(Name = "Price")]
+        [MaxLength(12)]
+        [RegularExpression(@"^\d+([\.\,]?\d+)?$", ErrorMessage = "Sólo valores numéricos . or , to put decimals")]
+        [Required]
+        public string PriceString { get; set; }
+
+
     }
 }
